@@ -46,6 +46,19 @@ if (isset($_POST['submit'])) {
         $eErr = "Email must be as : a@example.com";
     }
     //check email if exist
+    $emailcheck ="SELECT * FROM loginform;";
+    $result = mysqli_query($conn,$emailcheck);
+    $resultcheck = mysqli_query($conn , $result);
+    if($resultcheck > 0){
+        while($row = mysqli_fetch_assoc($result)){
+            if(($row["email"]) == ($_POST["email"])){
+                $eErr = "Email already used";
+                break;
+            }else{
+                $eErr =false;
+            }
+        }
+    }
     // elseif (isset($_POST['email'])) {
     //     if(!empty($_SESSION["userdata"])) {
     //         foreach ($_SESSION["userdata"] as $key => $value) {
@@ -84,14 +97,18 @@ if (isset($_POST['submit'])) {
         $confirmpassword= $_POST["cpass"];
 
         //store data in database 
-        $sql = "INSERT INTO loginform(firstname , secondname , thirdname, lastname, birthdate, email, phone, password, createdat)
-        VALUES ( '$firstname','$secondname', '$thirdname', '$lasrname','$birthdate', '$email','$phone', '$password', '$DCreated');";
+        $sql = "INSERT INTO loginform(firstname , secondname , thirdname, lastname, birthdate, email, phone, password)
+        VALUES ( '$firstname','$secondname', '$thirdname', '$lasrname','$birthdate', '$email','$phone', '$password');";
 
         if(mysqli_query($conn , $sql)){
-            header("location: loginpage.php");
+            echo "new record created successfully";
+            
         }else{
             echo "ERROR :" .$sql ."<br>" .mysqli_error($conn);
         }
+
+        mysqli_close($conn);
+        header("location: loginpage.php");
 
         // $_SESSION["datelastlogin"] = $Dlastlogin;
         // $_SESSION["datecreation"] = $DCreated;

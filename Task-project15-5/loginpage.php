@@ -14,10 +14,17 @@ if (isset($_POST['submitlogin'])) {
     $sqllogin = "SELECT * FROM loginform ;";
     $result = mysqli_query($conn , $sqllogin);
     $result_check = mysqli_num_rows($result);
-
     if($result_check > 0){
         while ($row = mysqli_fetch_assoc($result)){
             if(($e == $row['email']) && ($p ==$row['password'])){
+                $_SESSION['firstname']= $row['firstname'];
+                $_SESSION['secondname']= $row['secondname'];
+                $_SESSION['thirdname']= $row['thirdname'];
+                $_SESSION['lastname']= $row['lastname'];
+                $_SESSION['birthdate']= $row['birthdate'];
+                $_SESSION['email']= $row['email'];
+                $_SESSION['phone']= $row['phone'];
+                
                 header('location: welcomepage.php');
                 $row['datelastlogin']= date("d-m-Y - h:i:sa");
             }else{

@@ -7,10 +7,10 @@ $result_check = mysqli_num_rows($result);
 
 if($result_check > 0){
     $row = mysqli_fetch_assoc($result);
-    $fullname = $row["firstname"]." " .$row["secondname"] ." " .$row["thirdname"] ." " .$row["lastname"];
-    $birthdate =$row["birthdate"];
-    $email =$row["email"];
-    $phone =$row["phone"] ;
+    $fullname = $_SESSION['firstname']." " .$_SESSION["secondname"] ." " .$_SESSION["thirdname"] ." " .$_SESSION["lastname"];
+    $birthdate =$_SESSION["birthdate"];
+    $email =$_SESSION["email"];
+    $phone =$_SESSION["phone"] ;
 
 }
 
